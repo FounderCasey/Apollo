@@ -6,7 +6,7 @@ import marketplace from "./utils/Marketplace.json";
 function App() {
   const [currentAccount, setCurrentAccount] = useState("");
 
-  const marketplaceAddress = "0x0738B64990Bb6cB789c80a816A9e41A2241F038e";
+  const marketplaceAddress = "0x238bc1DFEF363EF44E7b5d04caE5c06Bd8A0995C";
   const marketplaceABI = marketplace.abi;
 
   const checkIfWalletIsConnected = async () => {

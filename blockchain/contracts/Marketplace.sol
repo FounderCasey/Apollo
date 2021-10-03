@@ -13,15 +13,25 @@ contract Marketplace {
         uint256 id;
         string name;
         uint256 price;
-        address owner;
+        address payable owner;
         bool purchased;
     }
+
+    Product[] allProducts;
 
     event ProductCreated(
         uint256 id,
         string name,
         uint256 price,
-        address owner,
+        address payable owner,
+        bool purchased
+    );
+
+    event ProductPurchased(
+        uint256 id,
+        string name,
+        uint256 price,
+        address payable owner,
         bool purchased
     );
 
@@ -37,17 +47,39 @@ contract Marketplace {
             productCount,
             _name,
             _price,
-            msg.sender,
+            payable(msg.sender),
             false
         );
-        emit ProductCreated(productCount, _name, _price, msg.sender, false);
+        emit ProductCreated(
+            productCount,
+            _name,
+            _price,
+            payable(msg.sender),
+            false
+        );
     }
 
-    function purchaseProduct(uint256 _id) public {
-        Product memory _product = products[_id];
-        address _seller = _prouct.owner;
-        _product.owner = msg.sender;
-        _product.purchased = true;
-        products[_id] = _product; // 1:07:22
+    function purchaseProduct(uint256 _id) public payable {
+        Product memory _product = products[_id]; // Get the product
+        address payable _seller = _product.owner; // Get the seller
+        require(_product.id > 0 && _product.id < productCount);
+        require(msg.value >= _product.price);
+        require(!_product.purchased);
+        require(_seller != msg.sender);
+        _product.owner = payable(msg.sender); // Transfer ownership(msg.sender is the user who called the function, in this case the buyer)
+        _product.purchased = true; // update product
+        products[_id] = _product;
+        payable(_seller).transfer(msg.value); // Transfer ether to seller from buyer
+        emit ProductPurchased(
+            productCount,
+            _product.name,
+            _product.price,
+            payable(msg.sender),
+            true
+        );
+    }
+
+    function getAllProducts() public view returns (Product[] memory) {
+        return allProducts;
     }
 }
