@@ -50,6 +50,9 @@ contract Marketplace {
             payable(msg.sender),
             false
         );
+        allProducts.push(
+            Product(productCount, _name, _price, payable(msg.sender), false)
+        );
         emit ProductCreated(
             productCount,
             _name,
