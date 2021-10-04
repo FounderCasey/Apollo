@@ -43,9 +43,15 @@ function Discover() {
           signer
         );
 
+        console.log(price);
+        console.log(ethers.utils.formatEther(price));
+
         const createTx = await marketplaceContract.purchaseProduct(id, {
           gasLimit: 300000,
-          value: ethers.utils.parseUnits(price.toString(), "ether"),
+          value: ethers.utils.parseUnits(
+            ethers.utils.formatEther(price),
+            "ether"
+          ),
         });
 
         await createTx.wait();
