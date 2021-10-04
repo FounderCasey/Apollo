@@ -13,8 +13,7 @@ contract Marketplace {
         uint256 id;
         string name;
         uint256 price;
-        address payable owner;
-        bool purchased;
+        address seller;
     }
 
     Product[] allProducts;
@@ -23,16 +22,14 @@ contract Marketplace {
         uint256 id,
         string name,
         uint256 price,
-        address payable owner,
-        bool purchased
+        address seller
     );
 
     event ProductPurchased(
         uint256 id,
         string name,
         uint256 price,
-        address payable owner,
-        bool purchased
+        address seller
     );
 
     constructor() public {
@@ -47,39 +44,36 @@ contract Marketplace {
             productCount,
             _name,
             _price,
-            payable(msg.sender),
-            false
+            payable(msg.sender)
         );
         allProducts.push(
-            Product(productCount, _name, _price, payable(msg.sender), false)
+            Product(productCount, _name, _price, payable(msg.sender))
         );
-        emit ProductCreated(
-            productCount,
-            _name,
-            _price,
-            payable(msg.sender),
-            false
-        );
+        emit ProductCreated(productCount, _name, _price, payable(msg.sender));
     }
 
     function purchaseProduct(uint256 _id) public payable {
-        Product memory _product = products[_id]; // Get the product
-        address payable _seller = _product.owner; // Get the seller
-        require(_product.id > 0 && _product.id < productCount);
-        require(msg.value >= _product.price);
-        require(!_product.purchased);
-        require(_seller != msg.sender);
-        _product.owner = payable(msg.sender); // Transfer ownership(msg.sender is the user who called the function, in this case the buyer)
-        _product.purchased = true; // update product
-        products[_id] = _product;
+        console.log("Starting purchase...");
+        // Get the product
+        Product memory _product = products[_id];
+        // Find the seller(product.seller), in order to pay them
+        address _seller = _product.seller;
+        // Verify product exists
+        // transfer ether to seller from buyer
+        //(bool sent, bytes memory data) = _seller.call{value: msg.value}("");
+        //require(sent, "Failed to send Ether");
+        // require(_product.id > 0 && _product.id < productCount);
+        // require(msg.value >= _product.price);
+        // require(!_product.purchased);
+        // require(_seller != msg.sender);
         payable(_seller).transfer(msg.value); // Transfer ether to seller from buyer
         emit ProductPurchased(
             productCount,
             _product.name,
             _product.price,
-            payable(msg.sender),
-            true
+            payable(msg.sender)
         );
+        console.log("Purchase completed");
     }
 
     function getAllProducts() public view returns (Product[] memory) {

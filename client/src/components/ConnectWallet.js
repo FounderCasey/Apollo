@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../styles/ConnectWallet.css";
 
 function ConnectWallet() {
   const [currentAccount, setCurrentAccount] = useState("");
@@ -43,7 +44,6 @@ function ConnectWallet() {
 
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]);
-      getAllProducts();
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +53,13 @@ function ConnectWallet() {
     checkIfWalletIsConnected();
   }, []);
 
-  return <button onClick={connectWallet}>Connect</button>;
+  return (
+    !currentAccount && (
+      <button className="connectWallet" onClick={connectWallet}>
+        Connect
+      </button>
+    )
+  );
 }
 
 export default ConnectWallet;

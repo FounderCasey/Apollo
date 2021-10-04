@@ -5,7 +5,7 @@ function NavigationBar() {
   return (
     <nav>
       <div className="container">
-        <h3>Appolo</h3>
+        <h3>Apollo</h3>
         <button>Upload</button>
       </div>
     </nav>

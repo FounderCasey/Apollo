@@ -1,0 +1,43 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* 
+
+We'll break this into it's own component shortly - Product cards
+
+*/
+
+.cardContainer {
+  box-sizing: border-box;
+  max-width: 1198px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 35px 0;
+}
+
+.card {
+  width: 250px;
+  border: solid 2px black;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  .cardImage {
+    height: 200px;
+    width: 100%;
+    background-color: rgb(184, 186, 199);
+  }
+}
