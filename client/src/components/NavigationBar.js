@@ -1,12 +1,15 @@
 import React from "react";
-import "../styles/NavigationBar.css";
+import "../styles/NavigationBar.scss";
+import { Link } from "react-router-dom";
 
 function NavigationBar() {
   return (
     <nav>
       <div className="container">
-        <h3>Apollo</h3>
-        <button>Upload</button>
+        <Link className="title" to="/">
+          Apollo
+        </Link>
+        <Link to="/create">Create Product</Link>
       </div>
     </nav>
   );
