@@ -38,6 +38,10 @@ h1 {
 
     img {
       max-height: 100%;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+      pointer-events: none;
     }
 
     p {
@@ -48,10 +52,16 @@ h1 {
       opacity: 0.4;
       font-weight: bold;
       cursor: pointer;
+
+      &:hover {
+        color: #e0e1e1;
+        opacity: 0.9;
+      }
     }
   }
 
   .cardRow {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -89,6 +99,12 @@ h1 {
       color: white;
       font-weight: 700;
       font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: #1553e2;
+      }
     }
   }
 }

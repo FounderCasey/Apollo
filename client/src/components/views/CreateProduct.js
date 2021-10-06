@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { ethers } from "ethers";
 import marketplace from "../../utils/Marketplace.json";
 import "../../styles/CreateProduct.scss";
+import { create } from "ipfs-http-client";
+
+const client = create("https://ipfs.infura.io:5001/api/v0");
 
 function CreateProduct() {
   const marketplaceAddress = "0x05630FBA6338DfBf5355E2516BB7AD4E92253BC8";
@@ -11,6 +14,18 @@ function CreateProduct() {
     name: "",
     price: "",
   });
+  const [fileUrl, updateFileUrl] = useState(``);
+
+  async function onChange(e) {
+    const file = e.target.files[0];
+    try {
+      const added = await client.add(file);
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      updateFileUrl(url);
+    } catch (error) {
+      console.log("Error uploading file: ", error);
+    }
+  }
 
   const createProduct = async () => {
     try {
@@ -57,6 +72,12 @@ function CreateProduct() {
         }}
       />
       <br />
+
+      <input type="file" onChange={onChange} />
+      {fileUrl && <img src={fileUrl} width="600px" />}
+
+      <br />
+
       <button
         onClick={() => {
           createProduct(newProduct.name, newProduct.price);
