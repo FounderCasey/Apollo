@@ -1,0 +1,54 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100%;
+  background-image: url(../assets/blur-bg.png);
+  box-sizing: border-box;
+  padding-top: 75px;
+
+  .container {
+    max-width: 1198px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .header-info {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      width: 50%;
+      color: white;
+
+      h1 {
+        text-align: left;
+        margin: 0;
+        font-size: 3rem;
+      }
+
+      p {
+        font-weight: 500;
+        font-size: 1.2rem;
+      }
+
+      button {
+        background: black;
+        border: none;
+        color: white;
+        padding: 15px 55px;
+        border-radius: 7px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: -5px 5px 25px rgba(0, 0, 0, 0.281);
+      }
+    }
+
+    img {
+      box-shadow: -5px 5px 25px rgba(0, 0, 0, 0.281);
+    }
+  }
+
+}

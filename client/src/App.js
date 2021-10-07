@@ -4,7 +4,7 @@ import "./App.scss";
 import NavigationBar from "./components/NavigationBar";
 import ConnectWallet from "./components/ConnectWallet";
 import CreateProduct from "./components/views/CreateProduct";
-import Discover from "./components/views/Discover";
+import Landing from "./components/views/Landing";
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <NavigationBar />
         <Switch>
           <Route exact path="/">
-            <Discover />
+            <Landing />
           </Route>
           <Route path="/create">
             <CreateProduct />

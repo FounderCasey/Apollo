@@ -78,8 +78,9 @@ function Discover() {
   }, []);
 
   return (
-    <div>
-      <h1>Discover</h1>
+    <div id="discover" className="container">
+      <h2>Discover</h2>
+      <p>Find what other creators have crafted</p>
       <div className="cardContainer">
         {products.map((product, index) => {
           return (

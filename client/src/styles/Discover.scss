@@ -1,17 +1,36 @@
-h1 {
-  text-align: center;
+#discover {
+
+    h2 {
+      text-align: center;
+      color: #fff;
+      font-size: 2.75rem;
+      margin-bottom: 0;
+    }
+
+    p {
+      color: #fff;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 0;
+      font-weight: 500;
+    }
+  
+
 }
+
+
 
 .cardContainer {
   box-sizing: border-box;
   max-width: 1198px;
   width: 100%;
+  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
   flex-wrap: wrap;
-  padding: 35px 0;
+  padding: 55px 0;
 }
 
 .card {
@@ -23,10 +42,10 @@ h1 {
   justify-content: flex-start;
   align-items: center;
   text-align: center;
+  background-color: #fff;
 
   .cardImage {
     width: 100%;
-    background-color: rgb(184, 186, 199);
     position: relative;
     display: flex;
     justify-content: stretch;
@@ -68,10 +87,6 @@ h1 {
     padding: 10px;
     width: 100%;
     box-sizing: border-box;
-    border: solid 2px #e0e1e1;
-    border-top: none;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
 
     .cardInfo {
       text-align: left;
