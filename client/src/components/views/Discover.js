@@ -94,6 +94,7 @@ function Discover() {
                 <div className="cardInfo">
                   <h3>{product.name}</h3>
                   <p>{ethers.utils.formatEther(product.price)} ETH</p>
+                  <p>{product.id.toString()}</p>
                 </div>
                 <button
                   onClick={() => purchaseProduct(product.id, product.price)}

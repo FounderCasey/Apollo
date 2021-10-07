@@ -1,8 +1,6 @@
-import { initializeApp, firestore } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// import { initializeApp, firebase } from "firebase/app";
+import firebase from "firebase";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBYjm1dSQmhf4sOi50rVYf75AEWz3rLwLM",
   authDomain: "apollo-dapp.firebaseapp.com",
@@ -13,7 +11,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
-var db = firestore();
+var db = firebase.firestore();
 export default db;

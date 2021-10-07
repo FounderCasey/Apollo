@@ -10,12 +10,17 @@ const main = async () => {
   await createTxn.wait();
 
   //const getAllProducts = await mpContract.getAllProducts();
-
+  /*
   let purchaseTx = await mpContract.purchaseProduct(0, {
     value: ethers.utils.parseUnits("1.33346456", "ether"),
   });
+  */
 
-  console.log(purchaseTx);
+  await mpContract.on("ProductCreated", (res) => {
+    console.log("Res: " + res);
+  });
+
+  console.log("Nada");
 };
 
 const runMain = async () => {

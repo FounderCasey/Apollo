@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import db from "../firebase.config";
 import "../styles/ConnectWallet.css";
 
 function ConnectWallet() {
@@ -43,10 +44,23 @@ function ConnectWallet() {
       });
 
       console.log("Connected", accounts[0]);
-      setCurrentAccount(accounts[0]);
+
+      await setCurrentAccount(accounts[0]);
+      await db.collection("users").doc(accounts[0]).set({
+        purchased: [],
+      });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const checkFirebaseUser = async () => {
+    const snapshot = db.collection("users");
+    const data = await snapshot.get();
+    console.log(data.docs);
+    data.docs.forEach((element) => {
+      if (element.id === currentAccount) console.log("we found it");
+    });
   };
 
   useEffect(() => {
