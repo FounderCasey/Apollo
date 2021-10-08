@@ -16,7 +16,12 @@ function Landing() {
             </p>
             <button>Get Started</button>
           </div>
-          <img src={Card} alt="card"></img>
+          <iframe
+            src="https://my.spline.design/untitled-f09db2c58d97b34c57db9d68048b18f5/"
+            frameBorder="0"
+            width="100%"
+            height="100%"
+          ></iframe>
         </div>
       </header>
       <Discover />

@@ -82,7 +82,7 @@ function CreateProduct() {
   }, []);
 
   return (
-    <div>
+    <div id="create-product">
       <h1>Create Product</h1>
       <input
         type="text"

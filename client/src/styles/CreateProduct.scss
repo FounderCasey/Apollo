@@ -1,3 +1,61 @@
-h1 {
-  text-align: center;
+#create-product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 55px;
+  }
+
+  input {
+    background-color: rgb(46, 46, 46);
+    border: none;
+    font-size: 1.1rem;
+    padding: 15px;
+    border-radius: 7px;
+    width: 375px;
+    color: white;
+    outline: none;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: #175cff 1px solid;
+    }
+  }
+
+  button {
+    width: 375px;
+    background-color: white;
+    color: black;
+    transition: 0.3s;
+
+    &:hover {
+      //background-color: #175cff;
+      background-image: url(../assets/blur-bg.png);
+      color: white;
+      -webkit-animation: bg-pan-left 2s linear infinite alternate both;
+      animation: bg-pan-left 2s ease-in-out infinite alternate both;
+    }
+  }
+
+  @-webkit-keyframes bg-pan-left {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @keyframes bg-pan-left {
+    0% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }

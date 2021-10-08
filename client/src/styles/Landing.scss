@@ -3,14 +3,32 @@ header {
   justify-content: center;
   align-items: center;
   height: 90vh;
+  overflow: hidden;
   width: 100%;
   background-image: url(../assets/blur-bg.png);
+  background-position: center;
+  background-size: cover;
   box-sizing: border-box;
-  padding-top: 75px;
+  animation: bgmove 5s infinite;
+
+  @keyframes bgmove {
+    0% {
+      background-position: left;
+      h1 {
+        color: red;
+      }
+    }
+
+    100% {
+      background-position: right;
+    }
+  }
 
   .container {
     max-width: 1198px;
+    height: 90vh;
     margin: auto;
+    position: relative;
 
     display: flex;
     justify-content: space-between;
@@ -20,7 +38,7 @@ header {
       justify-content: center;
       align-items: flex-start;
       flex-direction: column;
-      width: 50%;
+      width: 65%;
       color: white;
 
       h1 {
@@ -35,20 +53,77 @@ header {
       }
 
       button {
-        background: black;
-        border: none;
-        color: white;
-        padding: 15px 55px;
-        border-radius: 7px;
-        font-size: 1.1rem;
-        font-weight: 600;
         box-shadow: -5px 5px 25px rgba(0, 0, 0, 0.281);
       }
     }
 
     img {
       box-shadow: -5px 5px 25px rgba(0, 0, 0, 0.281);
+      width: 25%;
+    }
+
+    iframe {
+      margin: 0;
+      height: 900px;
+      transform: scale(0.85) translateY(-10px) translateX(170px);
     }
   }
+}
 
+@media only screen and (max-width: 1290px) {
+  header {
+    .container {
+      max-width: 90%;
+      height: 90vh;
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .header-info {
+        width: 80%;
+
+        h1 {
+          text-align: left;
+          margin: 0;
+          font-size: 3rem;
+        }
+
+        p {
+          font-weight: 500;
+          font-size: 1.2rem;
+        }
+
+        button {
+          box-shadow: -5px 5px 25px rgba(0, 0, 0, 0.281);
+        }
+      }
+
+      iframe {
+        transform: scale(0.65) translateX(100px);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    .container {
+      flex-direction: column;
+      justify-content: center;
+
+      .header-info {
+        width: 90%;
+        align-items: center;
+        h1,
+        p {
+          text-align: center;
+        }
+      }
+
+      iframe {
+        display: none;
+      }
+    }
+  }
 }
