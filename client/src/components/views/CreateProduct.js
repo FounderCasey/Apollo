@@ -15,17 +15,22 @@ function CreateProduct() {
     name: "",
     price: "",
   });
-  const [fileUrl, updateFileUrl] = useState(``);
+  const [allFiles, setAllFiles] = useState([]);
 
   async function onChange(e) {
-    const file = e.target.files[0];
-    try {
-      const added = await client.add(file);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      updateFileUrl(url);
-    } catch (error) {
-      console.log("Error uploading file: ", error);
+    const files = e.target.files;
+    let newFiles = [];
+    for (const key of Object.keys(files)) {
+      try {
+        const added = await client.add(files[key]);
+        const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+        console.log(url);
+        newFiles.push(url);
+      } catch (error) {
+        console.log("Error uploading file: ", error);
+      }
     }
+    setAllFiles(...allFiles, newFiles); //TODO: Look into why the stinkin previous state is not being kept
   }
 
   const setupEvents = async () => {
@@ -40,9 +45,11 @@ function CreateProduct() {
         );
 
         marketplaceContract.on("ProductCreated", (res) => {
-          db.collection("products").doc(res.toString()).set({
-            files: [],
-          });
+          console.log("Creating Product in Firebase");
+          createDoc(res.toString());
+          // await db.collection("products").doc(res.toString()).set({
+          //   files: allFiles,
+          // });
         });
       } else {
         console.log("Ethereum object doesn't exist!");
@@ -77,6 +84,13 @@ function CreateProduct() {
     }
   };
 
+  const createDoc = async (product_id) => {
+    console.log(allFiles);
+    await db.collection("products").doc(product_id).set({
+      files: allFiles,
+    });
+  };
+
   useEffect(() => {
     setupEvents();
   }, []);
@@ -102,8 +116,8 @@ function CreateProduct() {
       />
       <br />
 
-      <input type="file" onChange={onChange} />
-      {fileUrl && <img src={fileUrl} width="600px" />}
+      <input type="file" multiple onChange={onChange} />
+      {false && <img src={""} width="600px" />}
 
       <br />
 

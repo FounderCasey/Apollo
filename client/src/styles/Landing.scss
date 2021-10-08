@@ -9,18 +9,19 @@ header {
   background-position: center;
   background-size: cover;
   box-sizing: border-box;
-  animation: bgmove 5s infinite;
+  animation: bgmove 10s ease-in-out infinite;
 
   @keyframes bgmove {
     0% {
       background-position: left;
-      h1 {
-        color: red;
-      }
+    }
+
+    50% {
+      background-position: right;
     }
 
     100% {
-      background-position: right;
+      background-position: left;
     }
   }
 
