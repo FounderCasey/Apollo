@@ -45,11 +45,7 @@ function CreateProduct() {
         );
 
         marketplaceContract.on("ProductCreated", (res) => {
-          console.log("Creating Product in Firebase");
           createDoc(res.toString());
-          // await db.collection("products").doc(res.toString()).set({
-          //   files: allFiles,
-          // });
         });
       } else {
         console.log("Ethereum object doesn't exist!");
@@ -85,15 +81,19 @@ function CreateProduct() {
   };
 
   const createDoc = async (product_id) => {
-    console.log(allFiles);
-    await db.collection("products").doc(product_id).set({
-      files: allFiles,
-    });
+    // await db.collection("products").doc(product_id).set({
+    //   files: allFiles,
+    // });
   };
 
   useEffect(() => {
     setupEvents();
+    console.log("Setting up Events");
   }, []);
+
+  useEffect(() => {
+    console.log("allFiles has been updated: " + allFiles);
+  }, [allFiles]);
 
   return (
     <div id="create-product">
@@ -127,6 +127,26 @@ function CreateProduct() {
         }}
       >
         Create Product
+      </button>
+
+      <br />
+
+      <button
+        onClick={() => {
+          console.log(allFiles);
+        }}
+      >
+        Print States
+      </button>
+
+      <br />
+
+      <button
+        onClick={() => {
+          createDoc("test12354");
+        }}
+      >
+        Create Doc
       </button>
     </div>
   );
