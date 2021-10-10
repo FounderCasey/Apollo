@@ -26,6 +26,11 @@
     flex-wrap: wrap;
     padding: 55px 0;
 
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
     .card {
       width: 270px;
       height: 425px;

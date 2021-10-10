@@ -98,14 +98,11 @@ function CreateProduct() {
           <h1>Create Product</h1>
         </header>
         <input type="file" multiple onChange={onChange} />
-        <HorizontalScroll
-          reverseScroll={true}
-          className={allFiles.length === 0 ? "hidden" : "horizontal"}
-        >
+        <div className="images-container">
           {allFiles.map((e, index) => {
             return <img key={index} src={e} />;
           })}
-        </HorizontalScroll>
+        </div>
         <div className="flex-row">
           <input
             type="text"

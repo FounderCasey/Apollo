@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import { Link } from "react-router-dom";
 import marketplace from "../../utils/Marketplace.json";
 import bg from "../../assets/cardbg.png";
 import "../../styles/Discover.scss";
@@ -86,10 +87,12 @@ function Discover() {
           return (
             <div className="card" key={index}>
               <div className="cardImage">
-                <img src={bg} alt="card background" />
-                <p>
-                  {product.seller.slice(0, 6)}...{product.seller.slice(-4)}
-                </p>
+                <Link to={`/p/${index}`}>
+                  <img src={bg} alt="card background" />
+                  <p>
+                    {product.seller.slice(0, 6)}...{product.seller.slice(-4)}
+                  </p>
+                </Link>
               </div>
               <div className="cardRow">
                 <div className="cardInfo">
