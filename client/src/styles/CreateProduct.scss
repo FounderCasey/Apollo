@@ -1,61 +1,151 @@
 #create-product {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   height: 100vh;
 
   h1 {
     text-align: center;
     color: white;
-    margin-bottom: 55px;
   }
 
-  input {
-    background-color: rgb(46, 46, 46);
-    border: none;
-    font-size: 1.1rem;
+  .input-container {
+    background-color: #141414;
+    max-width: 900px;
+    min-width: 375px;
+    width: 50%;
     padding: 15px;
-    border-radius: 7px;
-    width: 375px;
-    color: white;
-    outline: none;
-    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 7px 7px 0 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    header {
+      width: 110%;
+      margin: -15px -15px 10px -15px;
+      height: 150px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .flex-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:first-of-type {
+        justify-content: flex-start;
+        overflow-x: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        gap: 5px;
+
+        &:hover {
+          img {
+            transform: translateX(0);
+          }
+        }
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      img {
+        width: 250px;
+        height: 150px;
+        transition: 0.2s;
+      }
+    }
+
+    input,
+    textarea {
+      background-color: rgb(46, 46, 46);
+      border: none;
+      font-size: 1.1rem;
+      padding: 15px;
+      border-radius: 7px;
+      color: white;
+      outline: none;
+      box-sizing: border-box;
+      margin: 10px 0;
+      width: 48%;
+
+      &[type="file"] {
+        width: 100%;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: transparent;
+        cursor: pointer;
+      }
+
+      &[type="file"]::before {
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        content: "Click to Upload Files";
+        height: 100%;
+        box-sizing: content-box;
+        font-weight: 500;
+      }
+
+      &[type="file"]::-webkit-file-upload-button {
+        visibility: hidden;
+      }
+    }
 
     &:focus {
       outline: #175cff 1px solid;
     }
-  }
 
-  button {
-    width: 375px;
-    background-color: white;
-    color: black;
-    transition: 0.3s;
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      resize: none;
+    }
 
-    &:hover {
-      //background-color: #175cff;
-      background-image: url(../assets/blur-bg.png);
-      color: white;
-      -webkit-animation: bg-pan-left 2s linear infinite alternate both;
-      animation: bg-pan-left 2s ease-in-out infinite alternate both;
-    }
-  }
+    button {
+      width: 250px;
+      background-color: white;
+      color: black;
+      transition: 0.3s;
+      margin: 10px 0;
+      align-self: flex-start;
 
-  @-webkit-keyframes bg-pan-left {
-    0% {
-      background-position: 100% 50%;
+      &:hover {
+        //background-color: #175cff;
+        background-image: url(../assets/blur-bg.png);
+        color: white;
+        -webkit-animation: bg-pan-left 2s linear infinite alternate both;
+        animation: bg-pan-left 2s ease-in-out infinite alternate both;
+      }
     }
-    100% {
-      background-position: 0% 50%;
+
+    @-webkit-keyframes bg-pan-left {
+      0% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
     }
-  }
-  @keyframes bg-pan-left {
-    0% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
+    @keyframes bg-pan-left {
+      0% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
     }
   }
 }
