@@ -39,29 +39,19 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
 
-      &:first-of-type {
-        justify-content: flex-start;
-        overflow-x: scroll;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        gap: 5px;
+    .horizontal {
+      height: 150px !important;
+    }
 
-        &:hover {
-          img {
-            transform: translateX(0);
-          }
-        }
+    img {
+      width: 250px;
+      height: 150px;
+      transition: 0.2s;
 
-        &::-webkit-scrollbar {
-          display: none;
-        }
-      }
-
-      img {
-        width: 250px;
-        height: 150px;
-        transition: 0.2s;
+      &:hover {
+        opacity: 0.5;
       }
     }
 

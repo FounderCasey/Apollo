@@ -100,7 +100,7 @@ function CreateProduct() {
         <input type="file" multiple onChange={onChange} />
         <HorizontalScroll
           reverseScroll={true}
-          className={allFiles.length === 0 ? "hidden" : ""}
+          className={allFiles.length === 0 ? "hidden" : "horizontal"}
         >
           {allFiles.map((e, index) => {
             return <img key={index} src={e} />;
