@@ -13,20 +13,15 @@ function Discover() {
 
   const getAllProducts = async () => {
     try {
-      if (window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const marketplaceContract = new ethers.Contract(
-          marketplaceAddress,
-          marketplaceABI,
-          signer
-        );
-        const _products = await marketplaceContract.getAllProducts();
+      const provider = new ethers.providers.getDefaultProvider("rinkeby");
+      const marketplaceContract = new ethers.Contract(
+        marketplaceAddress,
+        marketplaceABI,
+        provider
+      );
+      const _products = await marketplaceContract.getAllProducts();
 
-        setProducts(_products);
-      } else {
-        console.log("Ethereum object doesn't exist!");
-      }
+      setProducts(_products);
     } catch (error) {
       console.log(error.message);
     }

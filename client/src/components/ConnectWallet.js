@@ -54,15 +54,6 @@ function ConnectWallet() {
     }
   };
 
-  const checkFirebaseUser = async () => {
-    const snapshot = db.collection("users");
-    const data = await snapshot.get();
-    console.log(data.docs);
-    data.docs.forEach((element) => {
-      if (element.id === currentAccount) console.log("we found it");
-    });
-  };
-
   useEffect(() => {
     checkIfWalletIsConnected();
   }, []);

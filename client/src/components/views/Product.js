@@ -13,23 +13,18 @@ function Product() {
 
   const fetchProduct = async () => {
     try {
-      if (window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const marketplaceContract = new ethers.Contract(
-          marketplaceAddress,
-          marketplaceABI,
-          signer
-        );
+      const provider = new ethers.providers.getDefaultProvider("rinkeby");
+      const marketplaceContract = new ethers.Contract(
+        marketplaceAddress,
+        marketplaceABI,
+        provider
+      );
 
-        let count = await marketplaceContract.getAllProducts();
+      let count = await marketplaceContract.getAllProducts();
 
-        console.log(count[id]);
+      console.log(count[id]);
 
-        setProduct(count[id]);
-      } else {
-        console.log("Ethereum object doesn't exist!");
-      }
+      setProduct(count[id]);
     } catch (error) {
       console.log(error);
     }
