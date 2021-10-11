@@ -1,9 +1,116 @@
 #product {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    width: 100%;
+    background-image: url(../assets/blur-bg.png);
+    background-position: center;
+    background-size: 150%;
+    box-sizing: border-box;
+    animation: bgmove 10s ease-in-out infinite;
 
-  color: white;
+    @keyframes bgmove {
+      0% {
+        background-position: left;
+        background-size: 150%;
+      }
+
+      50% {
+        background-position: right;
+        background-size: 200%;
+      }
+
+      100% {
+        background-position: left;
+        background-size: 150%;
+      }
+    }
+
+    .product-container {
+      background-color: #000;
+      color: white;
+      width: 500px;
+      border-radius: 7px;
+      padding: 30px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.226);
+      .product-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+
+        h2 {
+          text-align: left;
+          margin: 0;
+          font-size: 2rem;
+        }
+
+        p {
+          font-weight: 500;
+          margin: 0;
+          font-size: 0.9rem;
+          opacity: 0.25;
+        }
+      }
+
+      .pricing {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+
+      button {
+        background-color: #175cff;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  #product {
+    header {
+      background-size: cover;
+
+      @keyframes bgmove {
+        0% {
+          background-position: left;
+        }
+
+        50% {
+          background-position: right;
+        }
+
+        100% {
+          background-position: left;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #product {
+    header {
+      align-items: flex-end;
+
+      .product-container {
+        border-radius: 7px 7px 0 0;
+
+        .product-header {
+          display: block;
+
+          p {
+            margin: 10px 0;
+          }
+        }
+
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
