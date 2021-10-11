@@ -9,29 +9,29 @@ import HorizontalScroll from "react-scroll-horizontal";
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
 function CreateProduct() {
-  const marketplaceAddress = "0x0E85C41E800080a1386FbD9a498Fe71217D38F81";
+  const marketplaceAddress = "0x3CF6E295Ec5afAfA5Ff5A70A9Df404CffcC2DE7B";
   const marketplaceABI = marketplace.abi;
 
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
+    desc: "",
   });
-  const [allFiles, setAllFiles] = useState([]);
+  const [file, setFile] = useState({});
+  const [uploading, setUploading] = useState(false);
 
   async function onChange(e) {
+    setUploading(true);
     const files = e.target.files;
-    let newFiles = [];
-    for (const key of Object.keys(files)) {
-      try {
-        const added = await client.add(files[key]);
-        const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-        console.log(url);
-        newFiles.push(url);
-      } catch (error) {
-        console.log("Error uploading file: ", error);
-      }
+    try {
+      console.log(files[0]);
+      const added = await client.add(files[0]);
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      setFile({ name: files[0].name, url: url });
+    } catch (error) {
+      console.log("Error uploading file: ", error);
     }
-    setAllFiles(...allFiles, newFiles); //TODO: Look into why the stinkin previous state is not being kept
+    setUploading(false);
   }
 
   // const setupEvents = async () => {
@@ -71,12 +71,13 @@ function CreateProduct() {
 
         const createTx = await marketplaceContract.createProduct(
           newProduct.name,
+          newProduct.desc,
           ethers.utils.parseUnits(newProduct.price, "ether")
         );
 
         await createTx.wait();
 
-        createDoc((count.length + 1).toString());
+        //createDoc((count.length + 1).toString());
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -85,11 +86,11 @@ function CreateProduct() {
     }
   };
 
-  const createDoc = async (product_id) => {
-    await db.collection("products").doc(product_id).set({
-      files: allFiles,
-    });
-  };
+  // const createDoc = async (product_id) => {
+  //   await db.collection("products").doc(product_id).set({
+  //     files: allFiles,
+  //   });
+  // };
 
   return (
     <div id="create-product">
@@ -97,12 +98,13 @@ function CreateProduct() {
         <header>
           <h1>Create Product</h1>
         </header>
-        <input type="file" multiple onChange={onChange} />
-        <div className="images-container">
-          {allFiles.map((e, index) => {
-            return <img key={index} src={e} />;
-          })}
-        </div>
+        <input
+          type="file"
+          accept=".zip,.rar,.7zip"
+          placeholder="Test"
+          onChange={onChange}
+        />
+        {file.name != null && <p className="file-name">{file.name}</p>}
         <div className="flex-row">
           <input
             type="text"
@@ -120,11 +122,16 @@ function CreateProduct() {
           />
         </div>
 
-        <textarea placeholder="Description here..." />
+        <textarea
+          placeholder="Description here..."
+          onChange={(e) => {
+            setNewProduct({ ...newProduct, desc: e.target.value });
+          }}
+        />
 
         <button
           onClick={() => {
-            createProduct(newProduct.name, newProduct.price);
+            createProduct(newProduct.name, newProduct.price, newProduct.desc);
           }}
         >
           Create Product

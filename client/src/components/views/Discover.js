@@ -8,7 +8,7 @@ import "../../styles/Discover.scss";
 function Discover() {
   const [products, setProducts] = useState([]);
 
-  const marketplaceAddress = "0x0E85C41E800080a1386FbD9a498Fe71217D38F81";
+  const marketplaceAddress = "0x3CF6E295Ec5afAfA5Ff5A70A9Df404CffcC2DE7B";
   const marketplaceABI = marketplace.abi;
 
   const getAllProducts = async () => {

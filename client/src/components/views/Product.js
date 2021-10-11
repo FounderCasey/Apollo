@@ -5,7 +5,7 @@ import marketplace from "../../utils/Marketplace.json";
 import "../../styles/Product.scss";
 
 function Product() {
-  const marketplaceAddress = "0x0E85C41E800080a1386FbD9a498Fe71217D38F81";
+  const marketplaceAddress = "0x3CF6E295Ec5afAfA5Ff5A70A9Df404CffcC2DE7B";
   const marketplaceABI = marketplace.abi;
   let { id } = useParams();
 
@@ -94,12 +94,7 @@ function Product() {
               <p className="pricing">
                 {ethers.utils.formatEther(product.price)} ETH
               </p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est,
-                pretium quis commodo lobortis integer amet adipiscing sagittis,
-                etiam. Hendrerit vel dolor, orci facilisi ornare morbi
-                adipiscing.
-              </p>
+              <p>{product.desc}</p>
             </>
           )}
           <button
