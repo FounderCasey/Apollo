@@ -8,13 +8,14 @@ import db from "../../firebase.config";
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
 function CreateProduct() {
-  const marketplaceAddress = "0x3CF6E295Ec5afAfA5Ff5A70A9Df404CffcC2DE7B";
+  const marketplaceAddress = "0xE96891b8BFA3a9A3e600DaB69667b39047A67A9a";
   const marketplaceABI = marketplace.abi;
 
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
     desc: "",
+    url: "",
   });
   const [file, setFile] = useState({});
   const [uploading, setUploading] = useState(false);
@@ -70,8 +71,9 @@ function CreateProduct() {
 
         const createTx = await marketplaceContract.createProduct(
           newProduct.name,
+          ethers.utils.parseUnits(newProduct.price, "ether"),
           newProduct.desc,
-          ethers.utils.parseUnits(newProduct.price, "ether")
+          file.url
         );
 
         await createTx.wait();
@@ -130,7 +132,7 @@ function CreateProduct() {
 
         <button
           onClick={() => {
-            createProduct(newProduct.name, newProduct.price, newProduct.desc);
+            createProduct();
           }}
         >
           Create Product

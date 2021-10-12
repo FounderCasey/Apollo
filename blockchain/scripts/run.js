@@ -5,9 +5,14 @@ const main = async () => {
   console.log("Contract addy:", mpContract.address);
   let createTxn = await mpContract.createProduct(
     "Test #1",
-    ethers.utils.parseUnits("1.33346456", "ether")
+    ethers.utils.parseUnits("1.33346456", "ether"),
+    "Description",
+    "file url here.com"
   );
   await createTxn.wait();
+  let count = await mpContract.getAllProducts();
+
+  console.log(count);
 
   //const getAllProducts = await mpContract.getAllProducts();
   /*
@@ -15,12 +20,6 @@ const main = async () => {
     value: ethers.utils.parseUnits("1.33346456", "ether"),
   });
   */
-
-  await mpContract.on("ProductCreated", (res) => {
-    console.log("Res: " + res);
-  });
-
-  console.log("Nada");
 };
 
 const runMain = async () => {

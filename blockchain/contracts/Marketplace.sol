@@ -15,6 +15,7 @@ contract Marketplace {
         string name;
         uint256 price;
         string desc;
+        string fileURL;
         address seller;
     }
 
@@ -23,8 +24,9 @@ contract Marketplace {
     event ProductCreated(
         uint256 id,
         string name,
-        string desc,
         uint256 price,
+        string desc,
+        string fileURL,
         address seller
     );
 
@@ -41,8 +43,9 @@ contract Marketplace {
 
     function createProduct(
         string memory _name,
+        uint256 _price,
         string memory _desc,
-        uint256 _price
+        string memory _fileURL
     ) public {
         require(bytes(_name).length > 0);
         require(bytes(_desc).length > 0);
@@ -53,17 +56,25 @@ contract Marketplace {
             _name,
             _price,
             _desc,
-            _file,
+            _fileURL,
             payable(msg.sender)
         );
         allProducts.push(
-            Product(productCount, _name, _price, _desc, payable(msg.sender))
+            Product(
+                productCount,
+                _name,
+                _price,
+                _desc,
+                _fileURL,
+                payable(msg.sender)
+            )
         );
         emit ProductCreated(
             productCount,
             _name,
-            _desc,
             _price,
+            _desc,
+            _fileURL,
             payable(msg.sender)
         );
     }
