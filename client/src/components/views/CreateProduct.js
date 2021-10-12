@@ -4,7 +4,6 @@ import marketplace from "../../utils/Marketplace.json";
 import "../../styles/CreateProduct.scss";
 import { create } from "ipfs-http-client";
 import db from "../../firebase.config";
-import HorizontalScroll from "react-scroll-horizontal";
 
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
