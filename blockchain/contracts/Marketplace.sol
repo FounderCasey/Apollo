@@ -53,6 +53,7 @@ contract Marketplace {
             _name,
             _price,
             _desc,
+            _file,
             payable(msg.sender)
         );
         allProducts.push(
