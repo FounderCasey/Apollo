@@ -82,25 +82,45 @@ function Product() {
         <div className="product-container">
           {product && (
             <>
-              <div className="product-header">
-                <h2>{product.name}</h2>
-                <p>
-                  {product.seller.slice(0, 6)}...{product.seller.slice(-4)}
-                </p>
-              </div>
-              <p className="pricing">
-                {ethers.utils.formatEther(product.price)} ETH
-              </p>
-              <p>{product.desc}</p>
+              {product.name != "" ? (
+                <>
+                  <div className="product-header">
+                    <h2>{product.name}</h2>
+                    <p>
+                      {product.seller.slice(0, 6)}...
+                      {product.seller.slice(-4)}
+                    </p>
+                  </div>
+                  <p className="pricing">
+                    {ethers.utils.formatEther(product.price)}
+                    ETH
+                  </p>
+                  <p>{product.desc}</p>
+                  <button
+                    onClick={() => {
+                      purchaseProduct(product.id, product.price);
+                    }}
+                  >
+                    Purchase
+                  </button>
+                </>
+              ) : (
+                <div className="fof">
+                  <h2>404</h2>
+                  <p>
+                    Sorry about this but we can't find what you're looking for.
+                  </p>
+                  <button
+                    onClick={() => {
+                      window.location.href = "/";
+                    }}
+                  >
+                    Back to Discover
+                  </button>
+                </div>
+              )}
             </>
           )}
-          <button
-            onClick={() => {
-              purchaseProduct(product.id, product.price);
-            }}
-          >
-            Purchase
-          </button>
         </div>
       </header>
     </section>

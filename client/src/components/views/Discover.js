@@ -23,7 +23,14 @@ function Discover() {
       let _products = [];
       let productCount = await marketplaceContract.productCount();
 
-      for (let i = 0; i <= productCount; i++) {
+      let buyerData = await marketplaceContract.buyers(
+        "0x21e162e396336dd40a1ce93c51d3696fa4a73896",
+        0
+      );
+
+      console.log(buyerData);
+
+      for (let i = 0; i < productCount; i++) {
         let product = await marketplaceContract.products(i);
         _products.push(product);
       }
@@ -45,9 +52,6 @@ function Discover() {
           marketplaceABI,
           signer
         );
-
-        console.log(price);
-        console.log(ethers.utils.formatEther(price));
 
         const createTx = await marketplaceContract.purchaseProduct(id, {
           gasLimit: 300000,
@@ -87,27 +91,23 @@ function Discover() {
       <div className="cardContainer">
         {products.map((product, index) => {
           return (
-            <div className="card" key={index}>
-              <div className="cardImage">
-                <Link to={`/p/${index}`}>
+            <Link to={`/p/${index}`}>
+              <div className="card" key={index}>
+                <div className="cardImage">
                   <img src={bg} alt="card background" />
                   <p>
                     {product.seller.slice(0, 6)}...{product.seller.slice(-4)}
                   </p>
-                </Link>
-              </div>
-              <div className="cardRow">
-                <div className="cardInfo">
-                  <h3>{product.name}</h3>
-                  <p>{ethers.utils.formatEther(product.price)} ETH</p>
                 </div>
-                <button
-                  onClick={() => purchaseProduct(product.id, product.price)}
-                >
-                  Purchase
-                </button>
+                <div className="cardRow">
+                  <button className="card-button">View</button>
+                  <div className="cardInfo">
+                    <h3>{product.name}</h3>
+                    <p>{ethers.utils.formatEther(product.price)} ETH</p>
+                  </div>
+                </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

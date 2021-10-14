@@ -37,22 +37,22 @@
       border-radius: 5px;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
       align-items: center;
       text-align: center;
       background-color: #fff;
       transition: 0.2s;
       cursor: pointer;
 
-      &:hover {
-        transform: scale(0.95);
-      }
+      // &:hover {
+      //   transform: scale(0.95);
+      // }
 
       .cardImage {
         width: 100%;
         position: relative;
         display: flex;
         justify-content: stretch;
+        height: 110%;
         align-items: center;
         overflow: hidden;
         border-top-right-radius: 5px;
@@ -60,7 +60,7 @@
         flex: 1;
 
         img {
-          max-height: 100%;
+          height: 370px;
           -moz-user-select: none;
           -webkit-user-select: none;
           user-select: none;
@@ -91,7 +91,15 @@
         align-items: center;
         padding: 10px;
         width: 100%;
+        overflow: hidden;
         box-sizing: border-box;
+
+        &:hover {
+          button {
+            transform: translateY(0px);
+            background-color: #175cff;
+          }
+        }
 
         .cardInfo {
           h3,
@@ -112,123 +120,24 @@
         }
 
         button {
-          background-color: #175cff;
-          border: none;
-          border-radius: 5px;
-          padding: 10px 20px;
-          color: white;
-          font-weight: 700;
-          font-size: 0.9rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          transform: translateY(200px);
+          border-radius: 0;
+          border-bottom-left-radius: 7px;
+          border-bottom-right-radius: 7px;
+
+          width: 100%;
+          height: 110%;
           transition: 0.2s;
 
           &:hover {
             background-color: #1553e2;
           }
         }
-      }
-    }
-  }
-}
-
-.cardContainer {
-  box-sizing: border-box;
-  max-width: 1198px;
-  width: 100%;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding: 55px 0;
-}
-
-.card {
-  width: 270px;
-  height: 425px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-  background-color: #fff;
-
-  .cardImage {
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: stretch;
-    align-items: center;
-    overflow: hidden;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    flex: 1;
-
-    img {
-      max-height: 100%;
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    p {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      margin: 0;
-      opacity: 0.4;
-      font-weight: bold;
-      cursor: pointer;
-
-      &:hover {
-        color: #e0e1e1;
-        opacity: 0.9;
-      }
-    }
-  }
-
-  .cardRow {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-
-    .cardInfo {
-      text-align: left;
-
-      h3,
-      p {
-        margin: 0;
-      }
-
-      h3 {
-        font-size: 0.9rem;
-      }
-
-      p {
-        color: #000;
-        font-size: 0.8rem;
-        font-weight: lighter;
-      }
-    }
-
-    button {
-      background-color: #175cff;
-      border: none;
-      border-radius: 5px;
-      padding: 10px 20px;
-      color: white;
-      font-weight: 700;
-      font-size: 0.9rem;
-      transition: 0.2s;
-
-      &:hover {
-        background-color: #1553e2;
       }
     }
   }
