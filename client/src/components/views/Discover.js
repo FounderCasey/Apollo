@@ -8,10 +8,10 @@ import "../../styles/Discover.scss";
 function Discover() {
   const [products, setProducts] = useState([]);
 
-  const marketplaceAddress = "0xE96891b8BFA3a9A3e600DaB69667b39047A67A9a";
+  const marketplaceAddress = "0xE9C8549868d0510753f4020729e21c0bfd0C5b22";
   const marketplaceABI = marketplace.abi;
 
-  const getAllProducts = async () => {
+  const fetchProducts = async () => {
     try {
       const provider = new ethers.providers.getDefaultProvider("rinkeby");
       const marketplaceContract = new ethers.Contract(
@@ -19,7 +19,14 @@ function Discover() {
         marketplaceABI,
         provider
       );
-      const _products = await marketplaceContract.getAllProducts();
+
+      let _products = [];
+      let productCount = await marketplaceContract.productCount();
+
+      for (let i = 0; i <= productCount; i++) {
+        let product = await marketplaceContract.products(i);
+        _products.push(product);
+      }
 
       setProducts(_products);
     } catch (error) {
@@ -60,7 +67,7 @@ function Discover() {
             " ETH"
         );
 
-        getAllProducts();
+        fetchProducts();
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -70,7 +77,7 @@ function Discover() {
   };
 
   useEffect(() => {
-    getAllProducts();
+    fetchProducts();
   }, []);
 
   return (

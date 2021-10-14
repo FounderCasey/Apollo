@@ -5,7 +5,7 @@ import marketplace from "../../utils/Marketplace.json";
 import "../../styles/Product.scss";
 
 function Product() {
-  const marketplaceAddress = "0xE96891b8BFA3a9A3e600DaB69667b39047A67A9a";
+  const marketplaceAddress = "0xE9C8549868d0510753f4020729e21c0bfd0C5b22";
   const marketplaceABI = marketplace.abi;
   let { id } = useParams();
 
@@ -20,11 +20,13 @@ function Product() {
         provider
       );
 
-      let count = await marketplaceContract.getAllProducts();
+      let prod = await marketplaceContract.products(id);
 
-      console.log(count[id]);
+      console.log(prod.id.toString());
 
-      setProduct(count[id]);
+      //console.log(count[id]);
+
+      setProduct(prod);
     } catch (error) {
       console.log(error);
     }

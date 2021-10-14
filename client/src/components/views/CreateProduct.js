@@ -8,7 +8,7 @@ import db from "../../firebase.config";
 const client = create("https://ipfs.infura.io:5001/api/v0");
 
 function CreateProduct() {
-  const marketplaceAddress = "0xE96891b8BFA3a9A3e600DaB69667b39047A67A9a";
+  const marketplaceAddress = "0xE9C8549868d0510753f4020729e21c0bfd0C5b22";
   const marketplaceABI = marketplace.abi;
 
   const [newProduct, setNewProduct] = useState({
@@ -66,8 +66,6 @@ function CreateProduct() {
           marketplaceABI,
           signer
         );
-
-        let count = await marketplaceContract.getAllProducts();
 
         const createTx = await marketplaceContract.createProduct(
           newProduct.name,

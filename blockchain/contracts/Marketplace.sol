@@ -9,6 +9,7 @@ contract Marketplace {
     string public desc;
     uint256 public productCount = 0;
     mapping(uint256 => Product) public products;
+    mapping(address => uint256[]) public buyers;
 
     struct Product {
         uint256 id;
@@ -18,8 +19,6 @@ contract Marketplace {
         string fileURL;
         address seller;
     }
-
-    Product[] allProducts;
 
     event ProductCreated(
         uint256 id,
@@ -50,7 +49,6 @@ contract Marketplace {
         require(bytes(_name).length > 0);
         require(bytes(_desc).length > 0);
         require(_price > 0);
-        productCount++;
         products[productCount] = Product(
             productCount,
             _name,
@@ -59,16 +57,7 @@ contract Marketplace {
             _fileURL,
             payable(msg.sender)
         );
-        allProducts.push(
-            Product(
-                productCount,
-                _name,
-                _price,
-                _desc,
-                _fileURL,
-                payable(msg.sender)
-            )
-        );
+        productCount++;
         emit ProductCreated(
             productCount,
             _name,
@@ -80,9 +69,9 @@ contract Marketplace {
     }
 
     function purchaseProduct(uint256 _id) public payable {
-        console.log("Starting purchase...");
         // Get the product
         Product memory _product = products[_id];
+
         // Find the seller(product.seller), in order to pay them
         address _seller = _product.seller;
         // Verify product exists
@@ -94,16 +83,15 @@ contract Marketplace {
         // require(!_product.purchased);
         // require(_seller != msg.sender);
         payable(_seller).transfer(msg.value); // Transfer ether to seller from buyer
+
+        // Record the sale here
+        buyers[msg.sender].push(_id);
+
         emit ProductPurchased(
             productCount,
             _product.name,
             _product.price,
             payable(msg.sender)
         );
-        console.log("Purchase completed");
-    }
-
-    function getAllProducts() public view returns (Product[] memory) {
-        return allProducts;
     }
 }
