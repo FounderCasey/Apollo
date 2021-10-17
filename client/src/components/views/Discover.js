@@ -8,7 +8,7 @@ import "../../styles/Discover.scss";
 function Discover() {
   const [products, setProducts] = useState([]);
 
-  const marketplaceAddress = "0xE9C8549868d0510753f4020729e21c0bfd0C5b22";
+  const marketplaceAddress = "0x6Df17907b1Fc60300FCFE8e7Ca4d27C47be6a4eB";
   const marketplaceABI = marketplace.abi;
 
   const fetchProducts = async () => {
@@ -23,13 +23,6 @@ function Discover() {
       let _products = [];
       let productCount = await marketplaceContract.productCount();
 
-      let buyerData = await marketplaceContract.buyers(
-        "0x21e162e396336dd40a1ce93c51d3696fa4a73896",
-        0
-      );
-
-      console.log(buyerData);
-
       for (let i = 0; i < productCount; i++) {
         let product = await marketplaceContract.products(i);
         _products.push(product);
@@ -38,45 +31,6 @@ function Discover() {
       setProducts(_products);
     } catch (error) {
       console.log(error.message);
-    }
-  };
-
-  const purchaseProduct = async (id, price) => {
-    try {
-      if (window.ethereum) {
-        console.log("Transaction started");
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const marketplaceContract = new ethers.Contract(
-          marketplaceAddress,
-          marketplaceABI,
-          signer
-        );
-
-        const createTx = await marketplaceContract.purchaseProduct(id, {
-          gasLimit: 300000,
-          value: ethers.utils.parseUnits(
-            ethers.utils.formatEther(price),
-            "ether"
-          ),
-        });
-
-        await createTx.wait();
-
-        console.log(
-          "Transaction completed for: " +
-            ethers.utils.formatEther(
-              ethers.utils.parseUnits(price.toString(), "ether")
-            ) +
-            " ETH"
-        );
-
-        fetchProducts();
-      } else {
-        console.log("Ethereum object doesn't exist!");
-      }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -91,8 +45,8 @@ function Discover() {
       <div className="cardContainer">
         {products.map((product, index) => {
           return (
-            <Link to={`/p/${index}`}>
-              <div className="card" key={index}>
+            <Link to={`/p/${index}`} key={index}>
+              <div className="card">
                 <div className="cardImage">
                   <img src={bg} alt="card background" />
                   <p>

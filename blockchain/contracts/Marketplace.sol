@@ -68,6 +68,10 @@ contract Marketplace {
         );
     }
 
+    function getBuyerLength() public view returns (uint256) {
+        return buyers[msg.sender].length;
+    }
+
     function purchaseProduct(uint256 _id) public payable {
         // Get the product
         Product memory _product = products[_id];

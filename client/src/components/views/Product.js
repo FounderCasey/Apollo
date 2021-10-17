@@ -5,7 +5,7 @@ import marketplace from "../../utils/Marketplace.json";
 import "../../styles/Product.scss";
 
 function Product() {
-  const marketplaceAddress = "0xE9C8549868d0510753f4020729e21c0bfd0C5b22";
+  const marketplaceAddress = "0x6Df17907b1Fc60300FCFE8e7Ca4d27C47be6a4eB";
   const marketplaceABI = marketplace.abi;
   let { id } = useParams();
 
@@ -22,10 +22,14 @@ function Product() {
 
       let prod = await marketplaceContract.products(id);
 
-      console.log(prod.id.toString());
+      // const buyer = await marketplaceContract.buyers(
+      //   "0x21e162e396336dd40a1ce93C51d3696FA4a73896",
+      //   0
+      // );
 
-      //console.log(count[id]);
+      const getBuyer = await marketplaceContract.getBuyerLength();
 
+      console.log(getBuyer.toString());
       setProduct(prod);
     } catch (error) {
       console.log(error);
@@ -82,7 +86,7 @@ function Product() {
         <div className="product-container">
           {product && (
             <>
-              {product.name != "" ? (
+              {product.name !== "" ? (
                 <>
                   <div className="product-header">
                     <h2>{product.name}</h2>
