@@ -10,6 +10,7 @@ function Product() {
   let { id } = useParams();
 
   const [product, setProduct] = useState(null);
+  const [purchased, setPurchased] = useState(false);
 
   const fetchProduct = async () => {
     try {
@@ -22,14 +23,38 @@ function Product() {
 
       let prod = await marketplaceContract.products(id);
 
-      // const buyer = await marketplaceContract.buyers(
-      //   "0x21e162e396336dd40a1ce93C51d3696FA4a73896",
-      //   0
-      // );
+      try {
+        const { ethereum } = window;
+        const accounts = await ethereum.request({ method: "eth_accounts" });
 
-      const getBuyer = await marketplaceContract.getBuyerLength();
+        let buyer;
 
-      console.log(getBuyer.toString());
+        if (accounts.length !== 0) {
+          const account = accounts[0];
+          let i = 0;
+          let run = true;
+
+          while (run) {
+            buyer = await marketplaceContract.buyers(account, i);
+            if (buyer.toString() == id) {
+              console.log("Product purchased, show download");
+              run = false;
+              setPurchased(true);
+            } else {
+              i++;
+            }
+          }
+        } else {
+          console.log("No account detected");
+        }
+
+        console.log(buyer.toString());
+      } catch (err) {
+        console.log(err);
+      }
+
+      console.log(prod);
+
       setProduct(prod);
     } catch (error) {
       console.log(error);
@@ -100,13 +125,23 @@ function Product() {
                     ETH
                   </p>
                   <p>{product.desc}</p>
-                  <button
-                    onClick={() => {
-                      purchaseProduct(product.id, product.price);
-                    }}
-                  >
-                    Purchase
-                  </button>
+                  {purchased ? (
+                    <button
+                      onClick={() => {
+                        window.open(product.fileURL);
+                      }}
+                    >
+                      Download
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        purchaseProduct(product.id, product.price);
+                      }}
+                    >
+                      Purchase
+                    </button>
+                  )}
                 </>
               ) : (
                 <div className="fof">
