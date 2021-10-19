@@ -1,7 +1,7 @@
 import React from "react";
 import Discover from "./Discover";
 import "../../styles/Landing.scss";
-import Card from "../../assets/card.png";
+import Footer from "../Footer";
 
 function Landing() {
   return (
@@ -25,6 +25,7 @@ function Landing() {
         </div>
       </header>
       <Discover />
+      <Footer />
     </section>
   );
 }

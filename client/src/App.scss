@@ -11,6 +11,11 @@ button {
   font-size: 1.1rem;
   font-weight: 600;
   font-family: "Poppins", serif;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: #175cff;
+  }
 }
 
 @keyframes slide-up {
